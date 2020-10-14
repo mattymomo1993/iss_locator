@@ -27,8 +27,14 @@ print("")
 people = result["people"]
 
 for p in people:
-  print(p["name"] + " on board of " + p["craft"])
+    print(p["name"] + " on board of " + p["craft"])
 
+
+def over_indiana():
+    url = "http://api.open-notify.org/iss-pass.json?lat=39.6411238&lon=-86.0512185"
+    response = urllib.request.urlopen(url)
+    result = json.loads(response.read())
+    return("Will Pass over Indianapolis " + str(time.ctime(result["request"]["datetime"])))
 
 #Display information on world map using Python Turtle
 screen = turtle.Screen()
@@ -42,13 +48,13 @@ iss = turtle.Turtle()
 iss.shape("iss.gif")
 iss.setheading(45)
 iss.penup()
+iss.goto(-86.0512185, 39.6411238)
+iss.dot(10, "yellow")
+iss.color("white")
+iss.write(over_indiana())
 
-def iss_over_indiana():
-    url = "http://api.open-notify.org/iss-pass.json?lat=39.6411238&lon=86.0512185"
-    response = urllib.request.urlopen(url)
-    result = json.loads(response.read())
-    time.ctime(result)
-iss_over_indiana()
+
+
 
 while True:
 #A JSON request to retrieve the current longitude and latitude of the IIS space station (real time)  
